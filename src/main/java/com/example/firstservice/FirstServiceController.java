@@ -1,6 +1,8 @@
 package com.example.firstservice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/first-service")
 public class FirstServiceController {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FirstServiceController.class);
+
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome to the First Service";
+    }
+
+    @GetMapping
+    public String message(@RequestHeader ("first-request") String header) {
+        log.info(header);
+        return "Hello World in First Service";
     }
 }
